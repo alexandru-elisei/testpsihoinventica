@@ -1,0 +1,39 @@
+.container-fluid{
+	background: rgb(245,245,245);
+	position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;
+}
+
+.container{
+	position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;
+	max-width: 750px;
+	min-height: 800px;
+	background: rgb(255,255,255);
+	border-left: 1px solid rgb(220,220,220);
+	border-right: 1px solid rgb(220,220,220);
+	padding: 50px;
+}
+
+select {
+	float: right;
+	max-width: 100px;
+	min-width: 100px;
+}
+
+table {
+}
+
+td {
+	height: 45px;
+}
+
+.emptycolumn {
+	border: none !important;
+}
+
+.firstcolumn {
+	border: none !important;
+}
+
+#msgplaceholder {
+	height: 30px;
+}
