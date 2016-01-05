@@ -1,5 +1,4 @@
 <?php
-/*
 $TEST_ANSWERS = array(
 	'este vorbaret',
 	'tinde spre a gasi vina cu altii',
@@ -46,9 +45,10 @@ $TEST_ANSWERS = array(
 	'este usor de distras',
 	'este sofisticat in arta, muzica sau literatura'
 );
- */
+/*
 $TEST_ANSWERS = array(
 	'este vorbaret',
 	'este sofisticat in arta, muzica sau literatura'
 );
+ */
 
