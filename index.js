@@ -12,7 +12,7 @@ $(document).ready(function() {
 		}
 		$.post("validate_answers.php", {postData}, function(data) {
 			if (data != "success") {
-				$("#msgplaceholder").text("Vă rugăm să alegeți un număr pentru toate afirmațiile.");
+				$("#msgplaceholder").text("Vă rugăm să alegeți un răspuns pentru toate afirmațiile.");
 				$("#msgplaceholder").css("color", "red");
 				$("#msgplaceholder").css("font-weight", "bold");
 			} else {

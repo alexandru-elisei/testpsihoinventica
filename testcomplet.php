@@ -2,30 +2,33 @@
 require_once(__DIR__ . '/test_contents.php');
 require_once(__DIR__ . '/config.php');
 
-function echo_test_answer($index, $page) {
-	global $TEST_ANSWERS;
-
-	$idnumber = $page * QUESTIONS_PER_PAGE + $index;
-	if ($index == 0) {
-		echo '<td class="text-left firstcolumn">';
-	} else {
-		echo '<td class="text-left">';
-	}
-	echo $TEST_ANSWERS[$idnumber];
-	echo '</td>';
-	if ($index == 0) {
-		echo '<td class="text-right firstcolumn">';
-	} else {
-		echo '<td class="text-right">';
-	}
-	echo '<select id="ans' . $idnumber . '" class="form-control select-ans">';
-	echo '<option value ="' . NOT_ANSWERED . '">Alegeți</option>';
-	for ($i = 1; $i <= 5; $i++) {
-		echo '<option value ="' . $i . '">' . $i . '</option>';
-	}
-	echo '</select>';
-	echo '</td>';
+$answers = array();
+foreach ($_POST as $key => $value) {
+	$questionnumber = substr($key, 4);
+	$answers[$questionnumber] = intval($value);
 }
+
+$results = array();
+foreach ($TEST_RESULTS as $category => $questions) {
+	$score = 0;
+	foreach ($questions as $question) {
+		$rpos = strpos($question, 'r');
+		if ($rpos === false) {
+			// Question number starts at 1 in the test sheet.
+			$question = intval($question) - 1;
+		} else {
+			// Question number starts at 1 in the test sheet.
+			$question = substr($question, 0, $rpos) - 1;
+		}
+		if ($rpos === false) {
+			$score += $answers[$question];
+		} else {
+			$score += ANSWER_RANGE + 1 - $answers[$question];
+		}
+	}
+	$results[$category] = $score;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ro">
@@ -35,7 +38,7 @@ function echo_test_answer($index, $page) {
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="testpsihoinventica.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
 	<title>Test Completat</title>
 </head>
 
@@ -44,10 +47,18 @@ function echo_test_answer($index, $page) {
 		<div class="container">
 			<h2 class="text-left">Test psihoinventică</h2>
 			<hr>
-			<p class="text-justify">Text completat cu sucess.</p>
+			<p class="text-justify">Test completat cu sucess. Rezultatele dumneavoastră sunt:</p>
+			<ul class="list">
 			<?php
-				var_dump($_POST);
+				foreach ($results as $category => $score) {
+					echo '<li>' . $category . ': ' . $score . '</li>';
+				}
 			?>
+			</ul>
+			<form role="form" method="link" action="<?php echo RETURN_URL ?>">
+				<br>
+				<input class="btn btn-primary" id="returnbutton" type="submit" value="Back to test">
+			</form>
 		</div>
 	</div>
 </body>

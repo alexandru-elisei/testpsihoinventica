@@ -20,7 +20,7 @@ function echo_test_answer($index, $page) {
 	}
 	echo '<select id="ans' . $idnumber . '" class="form-control select-ans">';
 	echo '<option value ="' . NOT_ANSWERED . '">Alegeți</option>';
-	for ($i = 1; $i <= 5; $i++) {
+	for ($i = 1; $i <= ANSWER_RANGE; $i++) {
 		echo '<option value ="' . $i . '">' . $i . '</option>';
 	}
 	echo '</select>';
@@ -59,7 +59,7 @@ function echo_test_answer($index, $page) {
 			<br>
 			<p class="text-justify"><strong>Mă văd ca pe cineva care:</strong></p>
 			<br>
-			<form id="submitform" role="form">	
+			<form id="submitform" role="form">
 				<div class="form-group">
 					<ul class="nav nav-tabs">
 						<?php
